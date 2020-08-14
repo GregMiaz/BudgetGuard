@@ -8,6 +8,7 @@ namespace BudgetGuard
     {
         static void Main(string[] args)
         {
+
             IMenuService menuService = new MenuService();
             string operation = string.Empty;
 
