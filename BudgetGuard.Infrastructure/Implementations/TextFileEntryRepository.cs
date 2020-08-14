@@ -27,7 +27,7 @@ namespace BudgetGuard.Infrastructure.Implementations
         {
             IList<Entry> entries = new List<Entry>();
 
-            if (File.Exists(_filePath))
+            if (File.Exists(_filePath) == false)
             {
                 return entries;
             }

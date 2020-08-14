@@ -1,4 +1,5 @@
 ﻿using BudgetGuard.App.Interfaces;
+using BudgetGuard.Infrastructure.Implementations;
 using BudgetGuard.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace BudgetGuard.App.Implementations
 {
     public class SelectionService
     {
-        static IEntryRepository _repository;
+        private static IEntryRepository _repository = new TextFileEntryRepository("entryrecords.txt");
 
         public static void AddNewIncome() 
         {
@@ -18,14 +19,11 @@ namespace BudgetGuard.App.Implementations
             Console.WriteLine("Name: ");
             string name = Console.ReadLine();
 
-
             Console.WriteLine("Amount:");
-            decimal amount;
-            decimal.TryParse(Console.ReadLine(), out amount);
+            decimal.TryParse(Console.ReadLine(), out decimal amount);
 
             Console.WriteLine("Date: ");
-            DateTime date = DateTime.Today;
-            DateTime.TryParse(Console.ReadLine(), out date);
+            DateTime.TryParse(Console.ReadLine(), out DateTime date);
 
             IEntryService entryService = new EntryService(_repository);
             entryService.AddNewIncome(amount, name, date);
@@ -33,7 +31,20 @@ namespace BudgetGuard.App.Implementations
 
         public static void AddNewOutcome() 
         {
-            
+            Console.Clear();
+
+            Console.WriteLine("New outcome:");
+            Console.WriteLine("Name: ");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Amount:");
+            decimal.TryParse(Console.ReadLine(), out decimal amount);
+
+            Console.WriteLine("Date: ");
+            DateTime.TryParse(Console.ReadLine(), out DateTime date);
+
+            IEntryService entryService = new EntryService(_repository);
+            entryService.AddNewOutcome(amount, name, date);
         }
 
         public static void RemoveExistingEntry() 

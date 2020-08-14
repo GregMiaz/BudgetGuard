@@ -8,15 +8,16 @@ namespace BudgetGuard
     {
         static void Main(string[] args)
         {
-
+            const string EXIT = "6";
+            string operation;
             IMenuService menuService = new MenuService();
-            string operation = string.Empty;
 
             do
             {
                 menuService.InitializeMenu();
                 operation = Console.ReadLine();
-            } while (operation != "6");
+                menuService.ProcessSelectedOperation(operation);
+            } while (operation != EXIT);
 
         }
     }

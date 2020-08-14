@@ -26,7 +26,10 @@ namespace BudgetGuard.App.Implementations
 
         public void AddNewOutcome(decimal amount, string name, DateTime date)
         {
-            throw new NotImplementedException();
+            var id = _repository.GetNextId();
+            var newOutcome = new Outcome(id, amount, name, date);
+
+            _repository.Add(newOutcome);
         }
 
         public void RemoveEntryById(int id)
