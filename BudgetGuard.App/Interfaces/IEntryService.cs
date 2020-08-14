@@ -6,7 +6,9 @@ namespace BudgetGuard.App.Interfaces
 {
     public interface IEntryService
     {
-        void AddNewIncome();
-        void AddNewOutcome();
+        void AddNewIncome(decimal amount, string name, DateTime date);
+        void AddNewOutcome(decimal amount, string name, DateTime date);
+
+        void RemoveEntryById(int id);
     }
 }
