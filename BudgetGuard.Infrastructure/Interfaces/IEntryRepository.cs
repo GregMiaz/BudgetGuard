@@ -5,11 +5,10 @@ using System.Text;
 
 namespace BudgetGuard.Infrastructure.Interfaces
 {
-    public interface IEntryRepository
+    public interface IEntryRepository : IRepository<Entry>
     {
-        IList<Entry> GetAll();
-        void Add(Entry entry);
-        void Remove(Entry entry);
+        IList<Entry> Entries { get; set; }
+
         int GetNextId();
     }
 }

@@ -9,7 +9,7 @@ namespace BudgetGuard.App.Implementations
 {
     public class SelectionService
     {
-        private static IEntryRepository _repository = new TextFileEntryRepository("entryrecords.txt");
+        private static IEntryRepository _repository = new InMemoryEntryRepository();
 
         public static void AddNewIncome() 
         {
