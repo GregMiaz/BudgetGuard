@@ -33,7 +33,7 @@ namespace BudgetGuard.App.Implementations
                     SelectionService.AddNewOutcome();
                     break;
                 case "3":
-                    SelectionService.RemoveExistingEntry();
+                    SelectionService.RemoveExistingEntryById();
                     break;
                 case "4":
                     SelectionService.ShowAllEntries();

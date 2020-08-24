@@ -3,6 +3,7 @@ using BudgetGuard.Domain.Models;
 using BudgetGuard.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BudgetGuard.App.Implementations
@@ -34,7 +35,12 @@ namespace BudgetGuard.App.Implementations
 
         public void RemoveEntryById(int id)
         {
-            throw new NotImplementedException();
+            _repository.RemoveById(id);
+        }
+
+        public IEnumerable<Entry> ShowAllEntries()
+        {
+            return _repository.GetAll();
         }
     }
 }

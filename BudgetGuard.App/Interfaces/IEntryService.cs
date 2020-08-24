@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BudgetGuard.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,5 +11,7 @@ namespace BudgetGuard.App.Interfaces
         void AddNewOutcome(decimal amount, string name, DateTime date);
 
         void RemoveEntryById(int id);
+
+        IEnumerable<Entry> ShowAllEntries();
     }
 }

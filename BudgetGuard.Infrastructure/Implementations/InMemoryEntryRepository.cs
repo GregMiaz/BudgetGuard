@@ -50,5 +50,11 @@ namespace BudgetGuard.Infrastructure.Implementations
         {
             Entries.Remove(item);
         }
+
+        public void RemoveById(int id)
+        {
+            var entryToRemove = Entries.FirstOrDefault(p => p.Id == id);
+            Entries.Remove(entryToRemove);
+        }
     }
 }
