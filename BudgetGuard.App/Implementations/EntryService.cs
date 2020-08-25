@@ -3,8 +3,6 @@ using BudgetGuard.Domain.Models;
 using BudgetGuard.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BudgetGuard.App.Implementations
 {

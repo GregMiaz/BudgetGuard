@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BudgetGuard.App.Helpers;
 
 namespace BudgetGuard.App.Interfaces
 {
     public interface IReportService
     {
-        void GetAllEntries();
-
+        Summary ShowSummaryFromSelectedMonth(int year, int month);
     }
 }

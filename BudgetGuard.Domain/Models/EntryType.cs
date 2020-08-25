@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BudgetGuard.Domain.Models
+﻿namespace BudgetGuard.Domain.Models
 {
     public enum EntryType
     {

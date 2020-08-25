@@ -1,9 +1,7 @@
 ﻿using BudgetGuard.Domain.Models;
 using BudgetGuard.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BudgetGuard.Infrastructure.Implementations
 {
@@ -16,9 +14,9 @@ namespace BudgetGuard.Infrastructure.Implementations
             Entries = new List<Entry>();
         }
 
-        public void Add(Entry item)
+        public void Add(Entry entry)
         {
-            Entries.Add(item);
+            Entries.Add(entry);
         }
 
         public IList<Entry> GetAll() 
@@ -46,9 +44,9 @@ namespace BudgetGuard.Infrastructure.Implementations
             }
         }
 
-        public void Remove(Entry item)
+        public void Remove(Entry entry)
         {
-            Entries.Remove(item);
+            Entries.Remove(entry);
         }
 
         public void RemoveById(int id)

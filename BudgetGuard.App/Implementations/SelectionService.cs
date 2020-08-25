@@ -2,15 +2,15 @@
 using BudgetGuard.Infrastructure.Implementations;
 using BudgetGuard.Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BudgetGuard.App.Implementations
 {
     public class SelectionService
     {
         private static IEntryRepository _repository = new InMemoryEntryRepository();
+        private static IReportService _reportService = new ReportService(_repository);
+
 
         public static void AddNewIncome()
         {
@@ -38,13 +38,13 @@ namespace BudgetGuard.App.Implementations
             Console.Clear();
 
             Console.WriteLine("New outcome:");
-            Console.WriteLine("Name: ");
+            Console.WriteLine("Enter name: ");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Amount:");
+            Console.WriteLine("Enter amount:");
             decimal.TryParse(Console.ReadLine(), out decimal amount);
 
-            Console.WriteLine("Date: ");
+            Console.WriteLine("Enter date: ");
             DateTime.TryParse(Console.ReadLine(), out DateTime date);
 
             IEntryService entryService = new EntryService(_repository);
@@ -77,15 +77,35 @@ namespace BudgetGuard.App.Implementations
             var entries = _repository.GetAll().ToList();
             foreach (var item in entries)
             {
-                Console.WriteLine($"ID: {item.Id}, NAME: {item.Name}, AMOUNT: {item.Amount}, DATE: {item.Date.ToShortDateString()} ");
+                Console.WriteLine($"ID: {item.Id} - NAME: {item.Name} - AMOUNT: {item.Amount} - DATE: {item.Date.ToShortDateString()} ");
             }
 
             Console.WriteLine(Environment.NewLine + "Press any key to return to main menu...");
             Console.ReadKey();
         }
 
-        public static void GenerateMonthlyReport()
+        public static void GenerateMonthlyFinancialReport()
         {
+            Console.Clear();
+
+            Console.WriteLine("Financial report:");
+            Console.WriteLine("Enter year:");
+            int.TryParse(Console.ReadLine(), out int year);
+
+            Console.WriteLine("Enter month:");
+            int.TryParse(Console.ReadLine(), out int month);
+
+            var result = _reportService.ShowSummaryFromSelectedMonth(year, month);
+
+            Console.WriteLine($"Summary {month}/{year}");
+
+            Console.WriteLine($"Sum of incomes: {result.Incomes} PLN");
+            Console.WriteLine($"Sum of outcomes: {result.Outcomes} PLN");
+            Console.WriteLine("====================");
+            Console.WriteLine($"Balance: {result.Balance} PLN");
+
+            Console.WriteLine(Environment.NewLine + "Press any key to return to main menu...");
+            Console.ReadKey();
 
         }
     }

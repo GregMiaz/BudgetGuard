@@ -1,13 +1,10 @@
 ﻿using BudgetGuard.App.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BudgetGuard.App.Implementations
 {
     public class MenuService : IMenuService
     {
-
         public void InitializeMenu()
         {
             Console.Clear();
@@ -17,8 +14,8 @@ namespace BudgetGuard.App.Implementations
             Console.WriteLine("2. Add new outcome");
             Console.WriteLine("3. Remove existing entry");
             Console.WriteLine("4. Show all entries");
-            Console.WriteLine("5 - Generate monthly report");
-            Console.WriteLine("6 - Exit from application");
+            Console.WriteLine("5. Generate financial report");
+            Console.WriteLine("6. Exit from application");
             Console.Write("You chose option number: ");
         }
 
@@ -39,11 +36,9 @@ namespace BudgetGuard.App.Implementations
                     SelectionService.ShowAllEntries();
                     break;
                 case "5":
-                    SelectionService.GenerateMonthlyReport();
+                    SelectionService.GenerateMonthlyFinancialReport();
                     break;
             }
         }
-
-
     }
 }

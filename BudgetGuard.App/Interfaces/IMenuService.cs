@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BudgetGuard.App.Interfaces
+﻿namespace BudgetGuard.App.Interfaces
 {
     public interface IMenuService
     {
