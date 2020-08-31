@@ -1,13 +1,14 @@
 ﻿using BudgetGuard.App.Helpers;
+using BudgetGuard.App.Implementations;
 using BudgetGuard.App.Interfaces;
 using BudgetGuard.Infrastructure.Implementations;
 using BudgetGuard.Infrastructure.Interfaces;
 using System;
 using System.Linq;
 
-namespace BudgetGuard.App.Implementations
+namespace BudgetGuard.App.Managers
 {
-    public class SelectionService
+    public class SelectionManager
     {
         private static IEntryRepository _repository = new InMemoryEntryRepository();
         private static IReportService _reportService = new ReportService(_repository);

@@ -1,4 +1,5 @@
 ﻿using BudgetGuard.App.Interfaces;
+using BudgetGuard.App.Managers;
 using System;
 
 namespace BudgetGuard.App.Implementations
@@ -24,19 +25,19 @@ namespace BudgetGuard.App.Implementations
             switch (operation)
             {
                 case "1":
-                    SelectionService.AddNewIncome();
+                    SelectionManager.AddNewIncome();
                     break;
                 case "2":
-                    SelectionService.AddNewOutcome();
+                    SelectionManager.AddNewOutcome();
                     break;
                 case "3":
-                    SelectionService.RemoveExistingEntryById();
+                    SelectionManager.RemoveExistingEntryById();
                     break;
                 case "4":
-                    SelectionService.ShowAllEntries();
+                    SelectionManager.ShowAllEntries();
                     break;
                 case "5":
-                    SelectionService.GenerateMonthlyFinancialReport();
+                    SelectionManager.GenerateMonthlyFinancialReport();
                     break;
             }
         }
