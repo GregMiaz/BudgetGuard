@@ -18,7 +18,7 @@ namespace BudgetGuard.App.Managers
             Console.Clear();
 
             Console.WriteLine("New income:");
-            Console.WriteLine("Enter name: ");
+            Console.WriteLine("Enter income name: ");
             string name = Console.ReadLine();
 
             Console.WriteLine("Enter amount:");
@@ -28,7 +28,7 @@ namespace BudgetGuard.App.Managers
                 Console.WriteLine("Please enter valid amount:");
             };
 
-            Console.WriteLine("Enter date: ");
+            Console.WriteLine("Enter date (YYYY-MM-DD): ");
             DateTime date;
             while (!DateTime.TryParse(Console.ReadLine(), out date)) 
             {
@@ -47,7 +47,7 @@ namespace BudgetGuard.App.Managers
             Console.Clear();
 
             Console.WriteLine("New outcome:");
-            Console.WriteLine("Enter name: ");
+            Console.WriteLine("Enter outcome name: ");
             string name = Console.ReadLine();
 
             Console.WriteLine("Enter amount:");
@@ -57,7 +57,7 @@ namespace BudgetGuard.App.Managers
                 Console.WriteLine("Please enter valid amount:");
             };
 
-            Console.WriteLine("Enter date: ");
+            Console.WriteLine("Enter date (YYYY-MM-DD): ");
             DateTime date;
             while (!DateTime.TryParse(Console.ReadLine(), out date))
             {
