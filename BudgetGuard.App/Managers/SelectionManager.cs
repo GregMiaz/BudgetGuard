@@ -25,7 +25,7 @@ namespace BudgetGuard.App.Managers
             decimal amount;
             while (!decimal.TryParse(Console.ReadLine(), out amount)) 
             {
-                Console.WriteLine("Please enter valid amount:");
+                Console.WriteLine("Please enter valid amount: ");
             };
 
             Console.WriteLine("Enter date (YYYY-MM-DD): ");
@@ -54,7 +54,7 @@ namespace BudgetGuard.App.Managers
             decimal amount;
             while (!decimal.TryParse(Console.ReadLine(), out amount))
             {
-                Console.WriteLine("Please enter valid amount:");
+                Console.WriteLine("Please enter valid amount: ");
             };
 
             Console.WriteLine("Enter date (YYYY-MM-DD): ");
