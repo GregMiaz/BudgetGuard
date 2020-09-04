@@ -7,7 +7,6 @@ namespace BudgetGuard.Infrastructure.Interfaces
         IList<T> GetAll();
         T GetById(int id);
         void Add(T item);
-        void Remove(T item);
         void RemoveById(int id);
     }
 }

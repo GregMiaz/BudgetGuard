@@ -7,52 +7,51 @@ namespace BudgetGuard.Infrastructure.Implementations
 {
     public class InMemoryEntryRepository : IEntryRepository
     {
-        public IList<Entry> Entries { get; set; }
+        private IList<Entry> _entries;
 
         public InMemoryEntryRepository()
         {
-            Entries = new List<Entry>();
+            _entries = new List<Entry>();
         }
 
         public void Add(Entry entry)
         {
-            Entries.Add(entry);
+            _entries.Add(entry);
         }
 
         public IList<Entry> GetAll() 
-            => Entries;
+            => _entries;
 
         public Entry GetById(int id)
         {
-            var entry = Entries.FirstOrDefault(p => p.Id == id);
+            var entry = _entries.FirstOrDefault(p => p.Id == id);
             return entry;
         }
 
         public int GetNextId()
         {
-            Entries = GetAll();
+            _entries = GetAll();
 
-            if (Entries.Count() > 0)
+            if (_entries.Count() > 0)
             {
-                int lastIndex = Entries.Count() - 1;
+                int lastIndex = _entries.Count() - 1;
 
-                return Entries.ElementAt(lastIndex).Id + 1;
+                return _entries.ElementAt(lastIndex).Id + 1;
             }
             else
             {
                 return 1;
             }
         }
-
         public void Remove(Entry entry)
         {
-            Entries.Remove(entry);
+            _entries.Remove(entry);
         }
 
         public void RemoveById(int id)
         {
-            var entryToRemove = Entries.FirstOrDefault(p => p.Id == id);
-            Entries.Remove(entryToRemove);
+            var entryToRemove = _entries.FirstOrDefault(p => p.Id == id);
+            _entries.Remove(entryToRemove);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BudgetGuard.App.Helpers;
 using BudgetGuard.App.Implementations;
 using BudgetGuard.App.Interfaces;
+using BudgetGuard.Domain.Models;
 using BudgetGuard.Infrastructure.Implementations;
 using BudgetGuard.Infrastructure.Interfaces;
 using System;
@@ -10,7 +11,7 @@ namespace BudgetGuard.App.Managers
 {
     public class SelectionManager
     {
-        private static IEntryRepository _repository = new InMemoryEntryRepository();
+        private static IEntryRepository _repository = new TxtFileEntryRepository();
         private static IReportService _reportService = new ReportService(_repository);
 
         public static void AddNewIncome()
@@ -23,14 +24,14 @@ namespace BudgetGuard.App.Managers
 
             Console.WriteLine("Enter amount:");
             decimal amount;
-            while (!decimal.TryParse(Console.ReadLine(), out amount)) 
+            while (!decimal.TryParse(Console.ReadLine(), out amount))
             {
                 Console.WriteLine("Please enter valid amount: ");
             };
 
             Console.WriteLine("Enter date (YYYY-MM-DD): ");
             DateTime date;
-            while (!DateTime.TryParse(Console.ReadLine(), out date)) 
+            while (!DateTime.TryParse(Console.ReadLine(), out date))
             {
                 Console.WriteLine("Please enter a valid date:");
             };
@@ -38,8 +39,10 @@ namespace BudgetGuard.App.Managers
             IEntryService entryService = new EntryService(_repository);
             entryService.AddNewIncome(amount, name, date);
 
-            Console.WriteLine(Environment.NewLine + "New income added, press any key to return to main menu...");
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("New income added");
+            Console.ResetColor();
+            ReturnToMenuMessage();
         }
 
         public static void AddNewOutcome()
@@ -67,42 +70,74 @@ namespace BudgetGuard.App.Managers
             IEntryService entryService = new EntryService(_repository);
             entryService.AddNewOutcome(amount, name, date);
 
-            Console.WriteLine(Environment.NewLine + "New outcome added, press any key to return to main menu...");
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("New outcome added");
+            Console.ResetColor();
+            ReturnToMenuMessage();
         }
 
         public static void RemoveExistingEntryById()
         {
             Console.Clear();
 
-            Console.WriteLine("Please type id of entry to remove: ");
-            int id;
-            while (!int.TryParse(Console.ReadLine(), out id)) 
+            var entries = _repository.GetAll().ToList();
+
+            if (entries.Count() == 0)
             {
-                Console.WriteLine("Please enter valid id:");
-            };
+                Console.WriteLine("There are no entries available");
+            }
+            else
+            {
+                foreach (var item in entries)
+                {
+                    Console.WriteLine($"ID: {item.Id} - NAME: {item.Name} - AMOUNT: {item.Amount:C} - DATE: {item.Date.ToShortDateString()} ");
+                }
 
-            IEntryService entryService = new EntryService(_repository);
-            entryService.RemoveEntryById(id);
+                Console.WriteLine();
+                Console.WriteLine("Please type id of entry to remove: ");
+                int id;
+                while (!int.TryParse(Console.ReadLine(), out id))
+                {
+                    Console.WriteLine("Please enter valid id:");
+                };
 
-            Console.WriteLine(Environment.NewLine + "Entry removed, press any key to return to main menu...");
-            Console.ReadKey();
+                IEntryService entryService = new EntryService(_repository);
+                entryService.RemoveEntryById(id);
+
+                Console.WriteLine(Environment.NewLine + "Entry removed");
+            }
+            ReturnToMenuMessage();
         }
 
         public static void ShowAllEntries()
         {
             Console.Clear();
 
-            Console.WriteLine("List of all entries:" + Environment.NewLine);
-
             var entries = _repository.GetAll().ToList();
-            foreach (var item in entries)
-            {
-                Console.WriteLine($"ID: {item.Id} - NAME: {item.Name} - AMOUNT: {item.Amount:C} - DATE: {item.Date.ToShortDateString()} ");
-            }
 
-            Console.WriteLine(Environment.NewLine + "Press any key to return to main menu...");
-            Console.ReadKey();
+            if (entries.Count() == 0)
+            {
+                Console.WriteLine("There are no entries available");
+            }
+            else
+            {
+                Console.WriteLine("List of all entries (green = income, red = outcome):" + Environment.NewLine);
+
+                foreach (var item in entries)
+                {
+                    if (item.Type == EntryType.Income)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    else 
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    Console.WriteLine($"ID: {item.Id} - NAME: {item.Name} - AMOUNT: {item.Amount:C} - DATE: {item.Date.ToShortDateString()} ");
+                }
+            }
+            Console.ResetColor();
+            ReturnToMenuMessage();
         }
 
         public static void GenerateMonthlyFinancialReport()
@@ -128,6 +163,11 @@ namespace BudgetGuard.App.Managers
 
             Summary.ShowReportOnScreen(year, month, result);
 
+            ReturnToMenuMessage();
+        }
+
+        private static void ReturnToMenuMessage()
+        {
             Console.WriteLine(Environment.NewLine + "Press any key to return to main menu...");
             Console.ReadKey();
         }
