@@ -15,20 +15,23 @@ namespace BudgetGuard.App.Implementations
             _repository = repository;
         }
 
-        public void AddNewIncome(decimal amount, string name, DateTime date)
+        public int AddNewIncome(decimal amount, string name, DateTime date)
         {
             var id = _repository.GetNextId();
             var newIncome = new Income(id, amount, name, date);
 
             _repository.Add(newIncome);
+            return newIncome.Id;
         }
 
-        public void AddNewOutcome(decimal amount, string name, DateTime date)
+        public int AddNewOutcome(decimal amount, string name, DateTime date)
         {
             var id = _repository.GetNextId();
             var newOutcome = new Outcome(id, amount, name, date);
 
             _repository.Add(newOutcome);
+
+            return newOutcome.Id;
         }
 
         public void RemoveEntryById(int id)
