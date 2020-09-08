@@ -44,8 +44,9 @@ namespace BudgetGuard.Tests
             var returnedNewOutcomeId = entryService.AddNewIncome(newOutcome.Amount, newOutcome.Name, newOutcome.Date);
 
             //Assert
-            returnedNewOutcomeId.Should().NotBe(0);
             returnedNewOutcomeId.Should().Be(2);
         }
+
+
     }
 }
