@@ -41,7 +41,6 @@ namespace BudgetGuard.App.Managers
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("New income added");
-            Console.ResetColor();
             ReturnToMenuMessage();
         }
 
@@ -72,7 +71,6 @@ namespace BudgetGuard.App.Managers
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("New outcome added");
-            Console.ResetColor();
             ReturnToMenuMessage();
         }
 
@@ -90,9 +88,10 @@ namespace BudgetGuard.App.Managers
             {
                 foreach (var item in entries)
                 {
-                    Console.WriteLine($"ID: {item.Id} - NAME: {item.Name} - AMOUNT: {item.Amount:C} - DATE: {item.Date.ToShortDateString()} ");
+                    DisplayEntryColorBasedOnType(item);
                 }
 
+                Console.ResetColor();
                 Console.WriteLine();
                 Console.WriteLine("Please type id of entry to remove: ");
                 int id;
@@ -125,19 +124,36 @@ namespace BudgetGuard.App.Managers
 
                 foreach (var item in entries)
                 {
-                    if (item.Type == EntryType.Income)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    }
-                    else 
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                    }
-                    Console.WriteLine($"ID: {item.Id} - NAME: {item.Name} - AMOUNT: {item.Amount:C} - DATE: {item.Date.ToShortDateString()} ");
+                    DisplayEntryColorBasedOnType(item);
                 }
             }
-            Console.ResetColor();
+
             ReturnToMenuMessage();
+        }
+
+        public static void ShowEntryById()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Enter entry id to display details:");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Please enter valid id: ");
+            };
+
+            var item = _repository.GetById(id);
+
+            if (item == null)
+            {
+                Console.WriteLine("There is no entry with provided id");
+                ReturnToMenuMessage();
+            }
+            else
+            {
+                DisplayEntryColorBasedOnType(item);
+                ReturnToMenuMessage();
+            }
         }
 
         public static void GenerateMonthlyFinancialReport()
@@ -166,8 +182,22 @@ namespace BudgetGuard.App.Managers
             ReturnToMenuMessage();
         }
 
+        private static void DisplayEntryColorBasedOnType(Entry item)
+        {
+            if (item.Type == EntryType.Income)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            Console.WriteLine($"ID: {item.Id} - NAME: {item.Name} - AMOUNT: {item.Amount:C} - DATE: {item.Date.ToShortDateString()} ");
+        }
+
         private static void ReturnToMenuMessage()
         {
+            Console.ResetColor();
             Console.WriteLine(Environment.NewLine + "Press any key to return to main menu...");
             Console.ReadKey();
         }

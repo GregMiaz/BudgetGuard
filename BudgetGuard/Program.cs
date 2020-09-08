@@ -8,7 +8,7 @@ namespace BudgetGuard
     {
         static void Main(string[] args)
         {
-            const string EXIT = "6";
+            const string EXIT = "7";
             string operation;
             IMenuService menuService = new MenuService();
 

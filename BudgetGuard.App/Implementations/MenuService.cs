@@ -13,10 +13,11 @@ namespace BudgetGuard.App.Implementations
             Console.WriteLine("Select an operation: \r\n");
             Console.WriteLine("1. Add new income");
             Console.WriteLine("2. Add new outcome");
-            Console.WriteLine("3. Remove existing entry");
-            Console.WriteLine("4. Show all entries");
-            Console.WriteLine("5. Generate financial report");
-            Console.WriteLine("6. Exit from application");
+            Console.WriteLine("3. Show single entry details");
+            Console.WriteLine("4. Remove existing entry");
+            Console.WriteLine("5. Show all entries");
+            Console.WriteLine("6. Generate financial report");
+            Console.WriteLine("7. Exit from application");
             Console.Write("You chose option number: ");
         }
 
@@ -31,12 +32,15 @@ namespace BudgetGuard.App.Implementations
                     SelectionManager.AddNewOutcome();
                     break;
                 case "3":
-                    SelectionManager.RemoveExistingEntryById();
+                    SelectionManager.ShowEntryById();
                     break;
                 case "4":
-                    SelectionManager.ShowAllEntries();
+                    SelectionManager.RemoveExistingEntryById();
                     break;
                 case "5":
+                    SelectionManager.ShowAllEntries();
+                    break;
+                case "6":
                     SelectionManager.GenerateMonthlyFinancialReport();
                     break;
             }

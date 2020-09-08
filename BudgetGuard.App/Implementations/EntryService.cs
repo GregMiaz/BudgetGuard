@@ -34,6 +34,12 @@ namespace BudgetGuard.App.Implementations
             return newOutcome.Id;
         }
 
+        public Entry GetEntryById(int id)
+        {
+            var entry = _repository.GetById(id);
+            return entry;
+        }
+
         public void RemoveEntryById(int id)
         {
             _repository.RemoveById(id);

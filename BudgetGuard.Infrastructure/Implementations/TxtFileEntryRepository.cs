@@ -19,10 +19,11 @@ namespace BudgetGuard.Infrastructure.Implementations
             _entries = new List<Entry>();
         }
 
-        public void Add(Entry entry)
+        public int Add(Entry entry)
         {
             var record = ConvertEntryObjectToFileRecord(entry);
             File.AppendAllText(_filePath, record);
+            return entry.Id;
         }
 
         public IList<Entry> GetAll()
@@ -64,7 +65,18 @@ namespace BudgetGuard.Infrastructure.Implementations
 
         public Entry GetById(int id)
         {
-            throw new NotImplementedException();
+            var entries = File.ReadAllLines(_filePath);
+            Entry entryToGet = null;
+
+            foreach (var entry in entries)
+            {
+                if (EntryHasId(id, entry))
+                {
+                    entryToGet = ConvertFileRecordToEntryObject(entry);
+                    break;
+                }
+            }
+            return entryToGet;
         }
 
         public void RemoveById(int id)
@@ -111,7 +123,7 @@ namespace BudgetGuard.Infrastructure.Implementations
             return record;
         }
 
-        private bool EntryHasId(int id, string entry) 
+        private bool EntryHasId(int id, string entry)
         {
             string[] columns = entry.Split(';');
 

@@ -14,12 +14,13 @@ namespace BudgetGuard.Infrastructure.Implementations
             _entries = new List<Entry>();
         }
 
-        public void Add(Entry entry)
+        public int Add(Entry entry)
         {
             _entries.Add(entry);
+            return entry.Id;
         }
 
-        public IList<Entry> GetAll() 
+        public IList<Entry> GetAll()
             => _entries;
 
         public Entry GetById(int id)
